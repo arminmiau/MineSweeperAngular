@@ -19,8 +19,8 @@ export class MineSweeperComponent {
 
   upadateFlag = input(false);
 
-  trueHeight = computed(() => Math.max(6, this.height()));
-  trueWidth = computed(() => Math.max(6, this.width()));
+  trueHeight = computed(() => Math.max(5, this.height()));
+  trueWidth = computed(() => Math.max(5, this.width()));
 
   isNewGame = true;
   isOver = false;
@@ -54,7 +54,7 @@ export class MineSweeperComponent {
 
     this.initNeighbors();
 
-    let cells = this.field().flat().filter(x => !cell.neighbors.map(x => x.neighbors).flat().distinct().includes(x));
+    let cells = this.field().flat().filter(x => x !== cell && !cell.neighbors.includes(x));
 
     this.mines.set(Math.max(Math.min(cells.length, this.mines()),1));
 

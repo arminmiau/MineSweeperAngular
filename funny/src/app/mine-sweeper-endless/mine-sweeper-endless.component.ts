@@ -19,8 +19,8 @@ export class MineSweeperComponentEndless {
 
   upadateFlag = input(false);
 
-  trueStartHeight = computed(() => Math.max(6, this.startHeight()));
-  trueStartWidth = computed(() => Math.max(6, this.startWidth()));
+  trueStartHeight = computed(() => Math.max(5, this.startHeight()));
+  trueStartWidth = computed(() => Math.max(5, this.startWidth()));
 
   currentHeight = signal(0);
   currentWidth = signal(0);
@@ -56,7 +56,8 @@ export class MineSweeperComponentEndless {
 
     this.findNeighbors(this.field());
 
-    const freeCells = cell.neighbors.map(x => x.neighbors).flat().distinct();
+    const freeCells = cell.neighbors;
+    freeCells.push(cell);
 
     this.field().forEach(x => x.forEach(y => y.isBomb = Math.random() <= (this.minesPercent() / 100) && !freeCells.includes(y)));
 
