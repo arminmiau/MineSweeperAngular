@@ -1,7 +1,7 @@
-<h1>Angular18</h1>
+<h1>Minesweeper</h1>
 <h2>
     {{text()}}
 </h2>
 <div>
-    <app-mine-sweeper [height]="5" [width]="5" [mines]="400" (result)=" text.set('You ' + $event)"></app-mine-sweeper>
+    <app-mine-sweeper-endless  [startHeight]="10" [startWidth]="10" [minesPercent]="20" (result)=" text.set('You ' + $event)"></app-mine-sweeper-endless>
 </div>

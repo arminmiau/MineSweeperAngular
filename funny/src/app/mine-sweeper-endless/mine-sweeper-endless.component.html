@@ -1,0 +1,26 @@
+<div class="minesweeper">
+    <table>
+        <tbody>
+            @for (row of field(); track $index) {
+            <tr>
+                @for (cell of row; track $index) {
+                <td (click)="isNewGame() ? initField(cell) : showCell(cell)" (contextmenu)="putFlag(cell, $event)">
+                    @if (cell.isFlag) {
+                    <span class="cell flag"></span>
+                    }
+                    @else if (cell.isHidden) {
+                    <span class="cell hidden"></span>
+                    }
+                    @else if (cell.isBomb) {
+                    <span class="cell bomb"></span>
+                    }
+                    @else {
+                    <span class="cell number number-{{cell.bombsAround}}">{{cell.bombsAround === 0 ? '' : cell.bombsAround}}</span>
+                    }
+                </td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
