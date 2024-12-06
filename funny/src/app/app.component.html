@@ -1,0 +1,7 @@
+<h1>Angular18</h1>
+<h2>
+    {{text()}}
+</h2>
+<div>
+    <app-mine-sweeper [height]="5" [width]="5" [mines]="400" (result)=" text.set('You ' + $event)"></app-mine-sweeper>
+</div>
