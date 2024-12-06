@@ -1,7 +1,58 @@
 <h1>Minesweeper</h1>
-<h2>
+<!-- <h2>
     {{text()}}
-</h2>
+</h2> -->
 <div>
-    <app-mine-sweeper-endless  [startHeight]="10" [startWidth]="10" [minesPercent]="20" (result)=" text.set('You ' + $event)"></app-mine-sweeper-endless>
+    <h4>Modes:</h4>
+    <input [(ngModel)]="selectedMode" type="radio" name="mode" value="normal"> Normal
+    <input [(ngModel)]="selectedMode" type="radio" name="mode" value="endless"> Endless
 </div>
+<hr>
+@if (selectedMode() === 'normal') {
+    @if (!gameDone()) {
+    <div>
+        Height:
+        <input type="number" [(ngModel)]="height">
+        Width:
+        <input type="number" [(ngModel)]="width">
+        Mines:
+        <input type="number" [(ngModel)]="mines">
+    </div>
+} @else {
+    @if (gameWon()) {
+        <h2 class="text-success" style="font-weight: bold;">You Won</h2>
+    } @else {
+        <h2 class="text-danger" style="font-weight: bold;">You Lost</h2>
+    }
+    <button class="btn btn-primary" (click)="gameDone.set(false); gameWon.set(false); flag.set(!flag()); foundMines.set(0)">Play Again</button>
+}
+    <hr>
+    <div>
+        <h4>Mines: {{foundMines()}} / {{mines()}}</h4>
+        <app-mine-sweeper  [height]="height()" [width]="width()" [(mines)]="mines" [(nrFlags)]="foundMines" [upadateFlag]="flag()" (result)="gameDone.set(true); gameWon.set($event == 'won')"></app-mine-sweeper>
+    </div>
+}
+@else if (selectedMode() === 'endless') {
+    @if (!gameDone()) {
+    <div>
+        Starting height:
+        <input type="number" [(ngModel)]="height">
+        Starting width:
+        <input type="number" [(ngModel)]="width">
+        Percent mines:
+        <input type="number" [(ngModel)]="minesPercent">
+    </div>
+} @else {
+    @if (gameWon()) {
+        <h2 class="text-success" style="font-weight: bold;">You Won</h2>
+    } @else {
+        <h2 class="text-danger" style="font-weight: bold;">You Lost</h2>
+    }
+    <button class="btn btn-primary" (click)="gameDone.set(false); gameWon.set(false); flag.set(!flag()); foundMines.set(0)">Play Again</button>
+}
+    <hr>
+    <div>
+        <h4>Mines: {{foundMines()}}</h4>
+        <app-mine-sweeper-endless  [startHeight]="height()" [startWidth]="width()" [minesPercent]="minesPercent()" [(nrFlags)]="foundMines" [upadateFlag]="flag()" (result)="gameDone.set(true)"></app-mine-sweeper-endless>
+    </div>
+}
