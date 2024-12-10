@@ -87,6 +87,7 @@ export class MineSweeperComponent {
     if (cell.isBomb) {
       this.result.emit('lost');
       this.isOver = true;
+      this.showBombs()
       return;
     }
     if (cell.bombsAround === 0) cell.neighbors.filter(x => x.isHidden).forEach(x => this.showCell(x));
@@ -124,5 +125,9 @@ export class MineSweeperComponent {
       this.result.emit('won');
       this.isOver = true;
     }
+  }
+
+  private showBombs() {
+    this.field().forEach(x => x.filter(x => x.isBomb).forEach(x => {x.isHidden = false, x.isFlag = false}))
   }
 }
